@@ -1,0 +1,55 @@
+> # demo of reticulate plus sklearn
+> # https://rstudio.github.io/reticulate/index.html
+> 
+> # installation:
+> # set python env and install:
+> 
+> # Sys.setenv(RETICULATE_PYTHON='/usr/bin/python3')
+> # install.packages("reticulate")
+> 
+> # import reticulate and check python info
+> library(reticulate)
+> py_config()
+python:         /usr/bin/python3
+libpython:      /usr/lib/python3.5/config-3.5m-x86_64-linux-gnu/libpython3.5.so
+pythonhome:     /usr:/usr
+version:        3.5.2 (default, Nov 17 2016, 17:05:23)  [GCC 5.4.0 20160609]
+numpy:          /usr/local/lib/python3.5/dist-packages/numpy
+numpy_version:  1.12.1
+
+python versions found: 
+ /usr/bin/python3
+ /usr/bin/python
+ /home/derek/atlasenv/bin/python
+ /home/derek/gensim35/bin/python
+ /home/derek/testenv/bin/python
+> 
+> # basic print functionality
+> py <- import_builtins()
+> 
+> # read in and test toy csv data
+> # NEEDS the stringsAsFactors=FALSE
+> brown <- read.csv('brown.csv', sep='\t', stringsAsFactors=FALSE)
+> names(brown)
+[1] "X"        "document" "topic"   
+> 
+> # run my script
+> script <- py_run_file("rpythontest.py")
+> 
+> # testing variables
+> script$test_string
+[1] "hello world"
+> script$test_list
+[1] 1 3 3 7
+> 
+> # call 'addone' function that takes one list of ints
+> py_call(script$addone, c(1,2,3,4,5))
+[2.0, 3.0, 4.0, 5.0, 6.0]
+> 
+> # call 'classify' function with sklearn pipeline : returns np array
+> preds <- py_call(test$classify, brown$document, brown$topic)
+> 
+> # convert to R format
+> preds = py_to_r(preds)
+> head(preds)
+[1] "religion" "religion" "religion" "religion" "religion" "religion"
