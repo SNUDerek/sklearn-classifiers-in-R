@@ -8,6 +8,8 @@ R file that demonstrates using python code in R
 
 ## `python_to_r_demo2.R` 
 
+*sorry, data is not provided*
+
 R file that demonstrates using python code in R
 
 this file demonstrates classification and prediction with separate functions
@@ -16,7 +18,11 @@ model and encoder are passed into R in a list
 
 ## `rpythontest.py`
 
-python script with a few test functions and variables, including an `sklearn` texe classification pipeline
+python script with a few test functions and variables, including an `sklearn` text classification pipeline
+
+## `rpythontest2.py`
+
+python script with functions for training a new `sklearn` text classification pipeline
 
 ## `brown.csv`
 
